@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin>
+    <name>DIDChallengeSaslPlugin</name>
+    <class>sasl.xmpp.client.DIDChallengeSaslPlugin</class>
+    <author>Markus Sabadello</author>
+    <version>1.0</version>
+    <description>Adds the DID-CHALLENGE SASL mechanism.</description>
+    <email>markus@danubetech.com</email>
+    <minSparkVersion>3.0.2</minSparkVersion>
+</plugin>
