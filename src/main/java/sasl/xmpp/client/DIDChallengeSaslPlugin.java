@@ -1,5 +1,6 @@
 package sasl.xmpp.client;
 
+import demo.sasl.client.debug.SaslClientDebug;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jivesoftware.smack.ConnectionListener;
@@ -9,7 +10,6 @@ import org.jivesoftware.spark.SparkManager;
 import org.jivesoftware.spark.plugin.Invokable;
 import org.jivesoftware.spark.plugin.Plugin;
 import sasl.mechanism.did.DIDChallengeSaslProvider;
-import sasl.xmpp.client.debug.SaslClientDebug;
 
 import javax.swing.*;
 import java.security.Security;
