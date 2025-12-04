@@ -5,22 +5,28 @@ import demo.sasl.client.integration.UserIntegrationWithDID;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.SASLAuthentication;
+import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.sasl.SASLMechanism;
 import org.jivesoftware.smack.sasl.javax.SASLJavaXMechanism;
 import org.jivesoftware.smack.sasl.javax.SmackJavaxSaslException;
-import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jivesoftware.spark.SparkManager;
+import org.jivesoftware.spark.plugin.Invokable;
 import org.jivesoftware.spark.plugin.Plugin;
+import org.jivesoftware.sparkimpl.settings.local.SettingsManager;
 import sasl.mechanism.did.DIDChallengeSaslProvider;
 import sasl.xmpp.client.debug.SaslClientDebug;
 
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.sasl.Sasl;
 import javax.security.sasl.SaslException;
+import javax.swing.*;
 import java.security.Security;
+import java.util.Arrays;
 import java.util.Map;
 
-public class DIDChallengeSaslPlugin implements Plugin {
+public class DIDChallengeSaslPlugin implements Plugin, Invokable, ConnectionListener {
 
     private static final Logger log = LogManager.getLogger(DIDChallengeSaslPlugin.class);
 
@@ -33,29 +39,55 @@ public class DIDChallengeSaslPlugin implements Plugin {
     }
 
     static {
-        log.debug("SASL mechanisms: " + SASLAuthentication.getRegisterdSASLMechanisms());
         SASLAuthentication.registerSASLMechanism(new SASLDIDChallengeJavaXMechanism());
+        log.debug("SASL mechanisms: " + SASLAuthentication.getRegisterdSASLMechanisms());
+    }
+
+    static {
+        SparkManager.getConnection().addConnectionListener(new DIDChallengeSaslPlugin());
     }
 
     @Override
     public void initialize() {
-
+        log.debug("initialize");
+        JOptionPane.showMessageDialog(null, "DID-CHALLENGE SASL mechanism: initialize");
     }
 
     @Override
     public void shutdown() {
-
+        log.debug("shutdown");
+        JOptionPane.showMessageDialog(null, "DID-CHALLENGE SASL mechanism: shutdown");
     }
 
     @Override
     public boolean canShutDown() {
-        return false;
+        log.debug("canShutDown");
+        JOptionPane.showMessageDialog(null, "DID-CHALLENGE SASL mechanism: canShutDown");
+        return true;
     }
 
     @Override
     public void uninstall() {
-
+        log.debug("uninstall");
+        JOptionPane.showMessageDialog(null, "DID-CHALLENGE SASL mechanism: uninstall");
     }
+
+    @Override
+    public void connecting(XMPPConnection connection) {
+        log.debug("connecting: " + connection);
+        JOptionPane.showMessageDialog(null, "DID-CHALLENGE SASL mechanism: connecting: " + connection);
+        ConnectionListener.super.connecting(connection);
+    }
+
+    @Override
+    public boolean invoke(Object... objects) {
+        log.debug("invoke: " + Arrays.asList(objects));
+        return false;
+    }
+
+    /*
+     * Helper classes
+     */
 
     private static class SASLDIDChallengeJavaXMechanism extends SASLJavaXMechanism {
 

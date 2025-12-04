@@ -16,8 +16,8 @@
 
     <repositories>
         <repository>
-            <id>lib</id>
-            <url>file://${project.basedir}/lib</url>
+            <id>dependencies</id>
+            <url>file://${project.basedir}/dependencies</url>
         </repository>
     </repositories>
 
@@ -31,10 +31,10 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <copy todir="${basedir}/plugin/libs">
+                                <copy todir="${basedir}/plugin/lib">
                                     <fileset dir="${basedir}/target" includes="*.jar" />
                                 </copy>
-                                <zip destfile="${basedir}/target/plugin/java-sasl-xmpp-client-spark-plugin.jar">
+                                <zip destfile="${basedir}/target/plugin/didchallengesasl.jar">
                                     <zipfileset dir="${basedir}/plugin" includes="**/*" />
                                 </zip>
                             </tasks>
